@@ -1,15 +1,15 @@
-return {
-	{
-		"saghen/blink.cmp",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		version = "1.*",
-		config = function()
-			require("blink.cmp").setup({
-				keymap = { preset = "default" },
-				appearance = {
-					nerd_font_variant = "mono",
-				},
-			})
-		end,
-	},
-}
+--<CR>return {
+	--<CR>{
+		--<CR>"saghen/blink.cmp",
+		--<CR>dependencies = { "rafamadriz/friendly-snippets" },
+		--<CR>version = "1.*",
+		--<CR>config = function()
+			--<CR>require("blink.cmp").setup({
+				--<CR>keymap = { preset = "default" },
+				--<CR>appearance = {
+					--<CR>nerd_font_variant = "mono",
+				--<CR>},
+			--<CR>})
+		--<CR>end,
+	--<CR>},
+--<CR>}

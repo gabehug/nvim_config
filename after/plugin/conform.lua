@@ -1,14 +1,14 @@
-require("conform").setup({
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true,
-	},
-	formatters_by_ft = {
-		lua = { "stylua" },
-		javascript = { "prettier" },
-		typescript = { "prettier" },
-		json = { "prettier" },
-		markdown = { "prettier" },
-		-- more formats as needed
-	},
-})
+--<CR>require("conform").setup({
+	--<CR>format_on_save = {
+		--<CR>timeout_ms = 500,
+		--<CR>lsp_fallback = true,
+	--<CR>},
+	--<CR>formatters_by_ft = {
+		--<CR>lua = { "stylua" },
+		--<CR>javascript = { "prettier" },
+		--<CR>typescript = { "prettier" },
+		--<CR>json = { "prettier" },
+		--<CR>markdown = { "prettier" },
+		--<CR>-- more formats as needed
+	--<CR>},
+--<CR>})
