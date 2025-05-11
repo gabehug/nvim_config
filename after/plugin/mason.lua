@@ -1,9 +1,0 @@
---<CR>require("mason").setup({
-    --<CR>ui = {
-        --<CR>icons = {
-            --<CR>package_installed = "✓",
-            --<CR>package_pending = "➜",
-            --<CR>package_uninstalled = "✗"
-        --<CR>}
-    --<CR>}
---<CR>})
