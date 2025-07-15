@@ -41,3 +41,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- Paste from buffer on p
+vim.opt.clipboard = "unnamedplus"
+
+-- Syntax highlighting
+-- example and can add more later on
+vim.cmd [[hi @function.builtin guifg=red]]
