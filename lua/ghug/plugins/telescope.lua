@@ -10,6 +10,8 @@ return {
                     vertical = {
                         width = 300,
                         height = 100,
+                        prompt_position = "top",
+                        mirror = true,
                     },
                 },
             },
