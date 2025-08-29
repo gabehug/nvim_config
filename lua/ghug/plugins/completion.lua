@@ -1,36 +1,84 @@
 return {
     {
+        'Exafunction/codeium.nvim',
+        config = function()
+            require('codeium').setup {
+                workspace_root = {
+                    find_root = function()
+                        local root = require('plenary.path').new(vim.fn.getcwd())
+                        return root:absolute()
+                    end
+                },
+                enable_cmp_source = false,
+                virtual_text = {
+                    enabled = true,
+                    manual = false,
+                    filetypes = {
+                        python = true,
+                        lua = true,
+                        markdown = false,
+                        oil = false,
+                    },
+                    default_filetype_enabled = true,
+                    idle_delay = 55,
+                    virtual_text_priority = 65535,
+                    map_keys = true,
+                    key_bindings = {
+                        accept = "<Tab>",
+                        accept_word = "<C-y>",
+                        accept_line = "<C-l>",
+                        clear = "<C-x>"
+                    }
+                }
+            }
+        end,
+    },
+    {
         'saghen/blink.cmp',
-        dependencies = { 'rafamadriz/friendly-snippets' },
-
+        --dependencies = { 'rafamadriz/friendly-snippets' },
         version = '1.*',
         opts = {
-            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-            -- 'super-tab' for mappings similar to vscode (tab to accept)
-            -- 'enter' for enter to accept
-            -- 'none' for no mappings
-            --
-            -- All presets have the following mappings:
-            -- C-space: Open menu or open docs if already open
-            -- C-n/C-p or Up/Down: Select next/previous item
-            -- C-e: Hide menu
-            -- C-k: Toggle signature help (if signature.enabled = true)
-            --
-            -- See :h blink-cmp-config-keymap for defining your own keymap
             keymap = { preset = 'default' },
 
             appearance = {
-                use_nvim_cmp_as_default = true,
+                use_nvim_cmp_as_default = false,
                 nerd_font_variant = 'mono'
             },
 
-            -- (Default) Only show the documentation popup when manually triggered
-            completion = { documentation = { auto_show = false } },
+            completion = {
+                documentation = { auto_show = true },
+                menu = {
+                    draw = {
+                        columns = {
+                            { "kind_icon" },
+                            { "label",    "label_description", gap = 1 },
+                        },
+                        components = {
+                            kind_icon = {
+                                ellipsis = false,
+                                text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
+                                highlight = function(ctx) return { { group = ctx.kind_hl, priority = 20000 } } end,
+                            },
+                            kind = {
+                                ellipsis = false,
+                                width = { fill = true },
+                                text = function(ctx) return ctx.kind end,
+                                highlight = function(ctx) return ctx.kind_hl end,
+                            },
+                        },
+                    },
+                },
+            },
 
-            -- Default list of enabled providers defined so that you can extend it
-            -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                default = { 'lsp', 'path', 'snippets', 'buffer', 'codeium' },
+                providers = {
+                    codeium = {
+                        name = 'Codeium',
+                        module = 'codeium.blink',
+                        async = true,
+                    },
+                },
             },
         },
         opts_extend = { "sources.default" }
