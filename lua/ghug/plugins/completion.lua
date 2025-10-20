@@ -16,7 +16,7 @@ return {
                     filetypes = {
                         python = true,
                         lua = true,
-                        markdown = false,
+                        markdown = true,
                         oil = false,
                     },
                     default_filetype_enabled = true,
@@ -35,7 +35,7 @@ return {
     },
     {
         'saghen/blink.cmp',
-        --dependencies = { 'rafamadriz/friendly-snippets' },
+        dependencies = { 'rafamadriz/friendly-snippets' },
         version = '1.*',
         opts = {
             keymap = { preset = 'default' },
@@ -71,13 +71,18 @@ return {
             },
 
             sources = {
-                default = { 'lsp', 'path', 'snippets', 'buffer', 'codeium' },
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
                     codeium = {
                         name = 'Codeium',
                         module = 'codeium.blink',
                         async = true,
                     },
+                },
+                per_filetype = {
+                    python = { 'lsp', 'codeium', 'path', 'snippets', 'buffer' },
+                    lua = { 'lsp', 'codeium', 'path', 'snippets', 'buffer' },
+                    markdown = { 'lsp', 'codeium', 'path', 'snippets', 'buffer' },
                 },
             },
         },
