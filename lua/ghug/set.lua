@@ -47,3 +47,6 @@ vim.opt.clipboard = "unnamedplus"
 -- Syntax highlighting
 -- example and can add more later on
 vim.cmd [[hi @function.builtin guifg=red]]
+
+-- Use rg instead of ripgrep
+vim.opt.grepprg = "rg --vimgrep --smart-case --hidden"
