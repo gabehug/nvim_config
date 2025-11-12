@@ -5,8 +5,12 @@ return {
     config = function()
         require("telescope").setup({
             defaults = {
+                find_files = {
+                    hidden = true,
+                },
+                -- Show hidden files and git ignored files
                 vimgrep_arguments = {
-                    "rg",                   -- Ripgrep
+                    "rg",
                     "--color=never",
                     "--no-heading",
                     "--with-filename",

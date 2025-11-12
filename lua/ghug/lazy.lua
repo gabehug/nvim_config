@@ -3,15 +3,15 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
     local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		vim.api.nvim_echo({
-			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out, "WarningMsg" },
-			{ "\nPress any key to exit..." },
-		}, true, {})
-		vim.fn.getchar()
-		os.exit(1)
-	end
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 -- This puts lazy into the runtimepath for neovim
 vim.opt.runtimepath:prepend(lazypath)
@@ -24,22 +24,42 @@ vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
-	spec = {
+    --	spec = {
+    --        {
+    --            "folke/tokyonight.nvim",
+    --            opts = {
+    --              transparent = true,
+    --              styles = {
+    --                sidebars = "transparent",
+    --                floats = "transparent",
+    --              },
+    --            },
+    --            config = function(_,opts)
+    --                require("tokyonight").setup(opts)
+    --                vim.cmd.colorscheme "tokyonight"
+    --            end
+    --        },
+    --		-- import your plugins
+    --		{ import = "ghug/plugins" },
+    --	},
+    spec = {
         {
-            "folke/tokyonight.nvim",
+            "catppuccin/nvim",
+            name = "catppuccin",
             opts = {
-              transparent = true,
-              styles = {
-                sidebars = "transparent",
-                floats = "transparent",
-              },
+                flavour = "frappe", -- latte, frappe, macchiato, mocha
+                transparent_background = true,
+                styles = {
+                    sidebars = "transparent",
+                    floats = "transparent",
+                },
             },
-            config = function(_,opts)
-                require("tokyonight").setup(opts)
-                vim.cmd.colorscheme "tokyonight"
+            config = function(_, opts)
+                require("catppuccin").setup(opts)
+                vim.cmd.colorscheme "catppuccin"
             end
         },
-		-- import your plugins
-		{ import = "ghug/plugins" },
-	},
+        -- import your plugins
+        { import = "ghug/plugins" },
+    },
 })
