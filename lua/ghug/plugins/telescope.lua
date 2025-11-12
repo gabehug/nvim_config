@@ -14,6 +14,7 @@ return {
                     "--column",
                     "--smart-case",
                     "--hidden",
+                    "--no-ignore-vcs",
                 },
                 layout_strategy = "vertical",
                 layout_config = {
@@ -28,8 +29,13 @@ return {
         })
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+        vim.keymap.set('n', '<leader>pf', function()
+            builtin.find_files({ hidden = true, no_ignore = true, follow = true})
+        end, {})
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>ps', builtin.live_grep, {})
+        vim.keymap.set('n', '<leader>ps', function() 
+            builtin.live_grep({ hidden = true, no_ignore = true, follow = true})
+        end, {})
+            
     end,
 }
