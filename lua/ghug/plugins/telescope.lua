@@ -17,34 +17,29 @@ return {
                     "--line-number",
                     "--column",
                     "--smart-case",
-                    "--hidden",            -- Include hidden files
-                    "--no-ignore",         -- Include gitignored files
+                    "--hidden",
+                    "--no-ignore-vcs",
                 },
-                file_ignore_patterns = {}, -- Remove default ignore patterns
                 layout_strategy = "vertical",
                 layout_config = {
                     vertical = {
                         width = 300,
                         height = 100,
+                        prompt_position = "top",
+                        mirror = true,
                     },
                 },
             },
         })
         local builtin = require('telescope.builtin')
 
-        -- vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
         vim.keymap.set('n', '<leader>pf', function()
-            builtin.find_files({
-                hidden = true,
-                no_ignore = true,
-            })
-        end)
+            builtin.find_files({ hidden = true, no_ignore = true, follow = true})
+        end, {})
         vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-        vim.keymap.set('n', '<leader>ps', function()
-            builtin.grep_string({
-                search = vim.fn.input("Grep > "),
-                additional_args = { "--hidden", "--no-ignore" }
-            })
-        end)
+        vim.keymap.set('n', '<leader>ps', function() 
+            builtin.live_grep({ hidden = true, no_ignore = true, follow = true})
+        end, {})
+            
     end,
 }

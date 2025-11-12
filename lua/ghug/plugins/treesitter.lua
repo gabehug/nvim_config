@@ -1,17 +1,12 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        init = function()
-            require("nvim-treesitter.install").prefer_git = true
-        end,
+        build = ":TSUpdate", -- Set up the build command
         config = function()
             require 'nvim-treesitter.configs'.setup {
-                ensure_installed = {
-                    "markdown", "markdown_inline",
-                    "python", "javascript", "typescript",
-                    "lua", "bash", "html", "css", "json", "yaml"
-                },
-                auto_install = true,
+                -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+                ensure_installed = { "c", "lua", "typescript", "javascript", "python", "vim", "vimdoc", "query", "markdown", "markdown_inline", "yaml" },
+                auto_install = false,
                 highlight = {
                     enable = true,
                     additional_vim_regex_highlighting = false,
