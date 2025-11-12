@@ -11,9 +11,6 @@ return {
         lazy = false,
         opts = {
             git = {
-                add = true,
-                mv = true,
-                rm = true,
                 show_ignored = true,
             },
         },
