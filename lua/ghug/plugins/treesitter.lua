@@ -1,20 +1,16 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate", -- Set up the build command
+        event = { "BufReadPre", "BufNewFile" },
+        build = ":TSUpdate",
         config = function()
-            require 'nvim-treesitter.configs'.setup {
-                -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-                ensure_installed = { "c", "lua", "typescript", "javascript", "python", "vim", "vimdoc", "query", "markdown", "markdown_inline", "yaml" },
-                auto_install = false,
+            require("nvim-treesitter.config").setup({
+                ensure_installed = { "lua", "python", "javascript", "typescript", "yaml" },
+                auto_install = true,
                 highlight = {
                     enable = true,
-                    additional_vim_regex_highlighting = false,
                 },
-                incremental_selection = {
-                    enable = true,
-                },
-            }
+            })
         end,
-    }
+    },
 }

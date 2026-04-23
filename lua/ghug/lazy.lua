@@ -24,30 +24,12 @@ vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
-    --	spec = {
-    --        {
-    --            "folke/tokyonight.nvim",
-    --            opts = {
-    --              transparent = true,
-    --              styles = {
-    --                sidebars = "transparent",
-    --                floats = "transparent",
-    --              },
-    --            },
-    --            config = function(_,opts)
-    --                require("tokyonight").setup(opts)
-    --                vim.cmd.colorscheme "tokyonight"
-    --            end
-    --        },
-    --		-- import your plugins
-    --		{ import = "ghug/plugins" },
-    --	},
     spec = {
         {
             "catppuccin/nvim",
             name = "catppuccin",
             opts = {
-                flavour = "frappe", -- latte, frappe, macchiato, mocha
+                flavour = "frappe",
                 transparent_background = true,
                 styles = {
                     sidebars = "transparent",
@@ -59,7 +41,6 @@ require("lazy").setup({
                 vim.cmd.colorscheme "catppuccin"
             end
         },
-        -- import your plugins
         { import = "ghug/plugins" },
     },
 })
