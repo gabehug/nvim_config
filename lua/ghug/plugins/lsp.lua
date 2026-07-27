@@ -5,39 +5,47 @@ return {
         -- Supress LSP progress notifications
         vim.lsp.handlers["$/progress"] = function() end
 
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = { "python", "lua", "rust", "typescript", "go" },
-            callback = function(args)
-                local filetype = args.match
-                local servers = {
-                    python = "pyright",
-                    lua = "lua_ls",
-                    rust = "rust_analyzer",
-                    typescript = "ts_ls",
-                    go = "gopls",
-                }
-                local server = servers[filetype]
-                if server then
-                    vim.lsp.enable(server)
-                end
-            end,
-        })
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        local blink_ok, blink = pcall(require, "blink.cmp")
+        if blink_ok and blink.get_lsp_capabilities then
+            capabilities = blink.get_lsp_capabilities(capabilities)
+        end
 
-        vim.lsp.config("lua_ls", {
-            settings = {
-                Lua = {
-                    runtime = { version = "Lua 5.1" },
-                    diagnostics = { globals = { "vim" } },
-                    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-                    telemetry = { enable = false },
+        local servers = {
+            pyright = {},
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        runtime = { version = "Lua 5.1" },
+                        diagnostics = { globals = { "vim" } },
+                        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                        telemetry = { enable = false },
+                    },
                 },
             },
-        })
+            rust_analyzer = {},
+            ts_ls = {},
+            gopls = {},
+        }
+
+        for server_name, server_opts in pairs(servers) do
+            server_opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_opts.capabilities or {})
+            vim.lsp.config(server_name, server_opts)
+            vim.lsp.enable(server_name)
+        end
+
+        local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = false })
 
         vim.api.nvim_create_autocmd("LspAttach", {
             callback = function(args)
                 local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
                 local buf = args.buf
+
+                -- navic for breadcrumbs
+                local ok, navic = pcall(require, "nvim-navic")
+                if ok and client:supports_method("textDocument/documentSymbol") then
+                    navic.attach(client, buf)
+                end
 
                 -- Diagnostics
                 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { buffer = buf, desc = "Show diagnostic" })
@@ -57,11 +65,13 @@ return {
                     not client:supports_method("textDocument/willSaveWaitUntil")
                     and client:supports_method("textDocument/formatting")
                 then
+                    vim.api.nvim_clear_autocmds({ group = format_group, buffer = buf })
                     vim.api.nvim_create_autocmd("BufWritePre", {
-                        buffer = args.buf,
+                        group = format_group,
+                        buffer = buf,
                         callback = function()
                             vim.lsp.buf.format({
-                                bufnr = args.buf,
+                                bufnr = buf,
                                 id = client.id,
                                 timeout_ms = 1000,
                             })
