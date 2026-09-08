@@ -9,4 +9,4 @@ vim.keymap.set("n", "¬", "<C-w>l", { desc = "Focus right window (Option-l)" })
 
 -- Neo-tree
 vim.keymap.set("n", "<leader><tab>", "<cmd>Neotree toggle position=left<CR>", { desc = "Neo-tree (sidebar)" })
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle position=float<CR>", { desc = "Neo-tree (float)" })
+vim.keymap.set("n", "<leader>t", "<cmd>Neotree float toggle<CR>", { desc = "Neo-tree (float)" })

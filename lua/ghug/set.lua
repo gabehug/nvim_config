@@ -39,15 +39,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Setup for OSC 52 clipboard
 vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-  },
-  paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-  },
+    name = "OSC 52",
+    copy = {
+        ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+        ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+        ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+        ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
 }
 
 -- Paste from buffer on p
@@ -60,3 +60,13 @@ vim.cmd [[hi @function.builtin guifg=red]]
 -- Use rg instead of ripgrep
 vim.opt.grepprg = "rg --vimgrep --smart-case --hidden"
 
+-- Sets line numbers in neo-tree
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*",
+    callback = function()
+        if vim.bo.filetype == "neo-tree" then
+            vim.opt_local.number = true
+            vim.opt_local.relativenumber = true
+        end
+    end,
+})
