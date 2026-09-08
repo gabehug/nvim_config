@@ -93,14 +93,23 @@ require("lazy").setup({
                         end
 
                         return {
+                            Normal                      = { fg = theme.ui.fg, bg = "NONE" },
+                            NormalNC                    = { fg = theme.ui.fg, bg = "NONE" },
+
+                            TabLine                     = { bg = "NONE" },
+                            TabLineSel                  = { bg = "NONE" },
+                            TabLineFill                 = { bg = "NONE" },
+
                             -- solid floating windows
                             NormalFloat                 = { bg = theme.ui.bg },
                             FloatBorder                 = { fg = theme.ui.shade0, bg = theme.ui.bg },
                             FloatTitle                  = { fg = theme.ui.special, bg = theme.ui.bg, bold = true },
 
+                            -- Neo-tree offset sidebar - green
+                            -- BufferLineOffsetSeparator   = { bg = "#76946a", fg = "#76946a" },
+                            -- BufferLineOffset            = { bg = "#76946a" },
+
                             -- neo-tree
-                            -- Neo-tree (Revised approach)
-                            -- Link NeoTree's main window to Normal to get default bg, then override other groups
                             NeoTreeNormal               = { bg = theme.ui.bg_m1 }, -- Explicitly set main background for consistency
                             NeoTreeNormalNC             = { bg = theme.ui.bg_m1 }, -- Non-current window
                             NeoTreeVertSplit            = { fg = theme.ui.shade0, bg = theme.ui.bg_m1 },

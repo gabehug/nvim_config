@@ -47,10 +47,10 @@ return {
             end,
             desc = "Delete buffer",
         },
-        { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-        { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-        { "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "Close buffers to the left" },
-        { "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "Close buffers to the right" },
+        { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",   desc = "Prev buffer" },
+        { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",   desc = "Next buffer" },
+        { "<leader>bh", "<cmd>BufferLineCloseLeft<cr>",   desc = "Close buffers to the left" },
+        { "<leader>bl", "<cmd>BufferLineCloseRight<cr>",  desc = "Close buffers to the right" },
         { "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", desc = "Close other buffers" },
     },
     opts = {
@@ -59,9 +59,8 @@ return {
             offsets = {
                 {
                     filetype = "neo-tree",
-                    text = "File Explorer",
-                    highlight = "Directory",
-                    text_align = "left",
+                    text = "",
+                    separator = true,
                 },
             },
             diagnostics = "nvim_lsp",
@@ -73,9 +72,32 @@ return {
                 end
                 return s
             end,
-            separator_style = "thin",
+            separator_style = "none",
+            tab_size = 0,
+            show_buffer_close_icons = false,
+            show_close_icon = false,
+            show_tab_indicators = false,
             always_show_bufferline = false,
+        },
+        highlights = {
+            fill = { bg = { attribute = "bg", highlight = "Normal" } },
+
+            background = { fg = "#727169", bg = "#171616" },
+            buffer = { fg = "#727169", bg = "#171616" },
+            buffer_visible = { fg = "#727169", bg = "#171616" },
+            buffer_selected = { fg = "#c5c9c5", bg = { attribute = "bg", highlight = "Normal" }, bold = true },
+
+            tab = { fg = "#727169", bg = "#171616" },
+            tab_selected = { fg = "#c5c9c5", bg = { attribute = "bg", highlight = "Normal" }, bold = true },
+
+            separator = { fg = "#171616", bg = "#171616" },
+            separator_visible = { fg = "#171616", bg = "#171616" },
+            separator_selected = { fg = "#dca561", bg = { attribute = "bg", highlight = "Normal" } },
+
+            tab_separator = { fg = "#171616", bg = "#171616" },
+            tab_separator_selected = { fg = "#dca561", bg = { attribute = "bg", highlight = "Normal" } },
+
+            indicator_selected = { fg = "#dca561", bg = { attribute = "bg", highlight = "Normal" } },
         },
     },
 }
-
