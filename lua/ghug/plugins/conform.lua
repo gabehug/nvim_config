@@ -20,7 +20,7 @@ return {
                 if vim.b[bufnr].disableConform or vim.g.disableConform then
                     return
                 end
-                return { timeout_ms = 500, lsp_fallback = true }
+                return { timeout_ms = 5000, lsp_fallback = true }
             end,
         })
 
@@ -29,3 +29,4 @@ return {
         end, { desc = "Format buffer" })
     end,
 }
+
